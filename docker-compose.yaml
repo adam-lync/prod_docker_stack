@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  plex:
+    container_name: plex
+    hostname: plex
+    restart: unless-stopped
+    image: plexinc/pms-docker # change this to plexinc/pms-docker:plexpass if you are a plexpass subscriber
+    volumes:
+      - ./plex:/config
+      - /mnt/storage/media:/data
+    ports:
+      - 32400:32400
+      - 32400:32400/udp
+      - 3005:3005
+      - 8324:8324
+      - 32469:32469
+      - 32469:32469/udp
+      - 1900:1900
+      - 1900:1900/udp
+      - 32410:32410
+      - 32410:32410/udp
+      - 32412:32412
+      - 32412:32412/udp
+      - 32413:32413
+      - 32413:32413/udp
+      - 32414:32414
+      - 32414:32414/udp
+    environment:
+      - TZ=America/Chicago
+      - ADVERTISE_IP="http://192.168.0.118:32400/"
+      - ALLOWED_NETWORKS=192.168.0.0/16
+      - PLEX_UID=1000
+      - PLEX_GID=1000
+    network_mode: "host"
